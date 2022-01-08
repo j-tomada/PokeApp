@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.poke-interface {
+  list-style: none;
+  display: flex;
+}
+
+.moves-button{
+  margin-bottom: 5px;
+  margin-right: 5px;
+  width: 210px;
+}
+
+.moves {
+}
