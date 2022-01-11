@@ -1,5 +1,5 @@
 import './App.css';
-import PokeInterface  from './PokeInterface';
+import PokeInterface  from './components/PokeInterface';
 
 function App() {
   return (
