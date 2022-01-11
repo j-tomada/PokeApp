@@ -7,18 +7,23 @@ import Popup from './Popup'
  */
 
 export default function PokeInterface () {
-    const [buttonClicked, setButtonClicked] = useState(false);
+    const [buttonClicked, setButtonClicked] = useState(false)
     /**
      * This function returns the button to select a pokemon
      */
     function pokeButton () {
         return (
-            <button className="poke-logo" onClick={() => setButtonClicked(true)}>
-                <img src={require('../images/add_button_poke.png')} height='205px'/>
-                <Popup trigger={buttonClicked}>
+            <div>
+                <main>
+                    <button onClick={() => setButtonClicked(true)} className="poke-logo">
+                        <img src={require('../images/add_button_poke.png')} height='205px'/>
+                    </button>
+                </main>
+
+                <Popup trigger={buttonClicked} setTrigger={setButtonClicked}>
                     <h3>My popup</h3>
                 </Popup>
-            </button>
+            </div>
         )
     }
 
