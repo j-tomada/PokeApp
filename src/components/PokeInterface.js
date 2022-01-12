@@ -32,9 +32,15 @@ export default function PokeInterface () {
      */
     function moveButton () {
         return (
-            <button className="moves-button">
-                <img src={require('../images/add_button_moves.png')} />
-            </button>
+            <div>
+                <button onClick={() => setButtonClicked(true)} className="moves-button">
+                    <img src={require('../images/add_button_moves.png')} />
+                </button>
+
+                <Popup trigger={buttonClicked} setTrigger={setButtonClicked}>
+                <h3>My popup</h3>
+                </Popup>
+            </div>
         )
     }
     return (
