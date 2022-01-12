@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Popup from './Popup'
+import SearchBar from './SearchBar'
 
 /**
  * This contains the pokemon interface which displays the pokemon chosen 
@@ -7,7 +8,9 @@ import Popup from './Popup'
  */
 
 export default function PokeInterface () {
-    const [buttonClicked, setButtonClicked] = useState(false)
+    const [pokeClicked, setPokeClicked] = useState(false)
+    const [moveClicked, setMoveClicked] = useState(false)
+
     /**
      * This function returns the button to select a pokemon
      */
@@ -15,13 +18,14 @@ export default function PokeInterface () {
         return (
             <div>
                 <main>
-                    <button onClick={() => setButtonClicked(true)} className="poke-logo">
+                    <button onClick={() => setPokeClicked(true)} className="poke-logo">
                         <img src={require('../images/add_button_poke.png')} height='205px'/>
                     </button>
                 </main>
 
-                <Popup trigger={buttonClicked} setTrigger={setButtonClicked}>
+                <Popup trigger={pokeClicked} setTrigger={setPokeClicked}>
                     <h3>My popup</h3>
+                    <SearchBar placeholder="Search for a pokemon"/>
                 </Popup>
             </div>
         )
@@ -33,12 +37,12 @@ export default function PokeInterface () {
     function moveButton () {
         return (
             <div>
-                <button onClick={() => setButtonClicked(true)} className="moves-button">
+                <button onClick={() => setMoveClicked(true)} className="moves-button">
                     <img src={require('../images/add_button_moves.png')} />
                 </button>
 
-                <Popup trigger={buttonClicked} setTrigger={setButtonClicked}>
-                <h3>My popup</h3>
+                <Popup trigger={moveClicked} setTrigger={setMoveClicked}>
+                    <h3>Different</h3>
                 </Popup>
             </div>
         )
