@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Popup from './Popup'
 import SearchBar from './SearchBar'
 
@@ -10,6 +10,17 @@ import SearchBar from './SearchBar'
 export default function PokeInterface () {
     const [pokeClicked, setPokeClicked] = useState(false)
     const [moveClicked, setMoveClicked] = useState(false)
+    const [pokeData, setPokeData] = useState(null)
+    const mountedRef = useRef(true)
+
+    useEffect(() => {
+        fetch('https://pokeapi.co/api/v2/pokemon?limit=100000')
+        .then(response => response.json())
+        .then(data => {
+            setPokeData(data.results)
+        })
+        return () => { mountedRef.current = false }
+    }, [])
 
     /**
      * This function returns the button to select a pokemon
@@ -25,7 +36,7 @@ export default function PokeInterface () {
 
                 <Popup trigger={pokeClicked} setTrigger={setPokeClicked}>
                     <h3>My popup</h3>
-                    <SearchBar placeholder="Search for a pokemon"/>
+                    <SearchBar placeholder="Search for a pokemon" data={pokeData}/>
                 </Popup>
             </div>
         )
