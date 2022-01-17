@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import IconButton from '@mui/material/IconButton';
+import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import './SearchBar.css'
 
 export default function SearchBar ({ placeholder, data }) {
@@ -7,21 +9,25 @@ export default function SearchBar ({ placeholder, data }) {
     const handleFilter = (event) => {
         const searchWord = event.target.value;
         const newFilter = data.filter((value) => {
-            return /*value.title.includes(searchWord); */
+            return value.name.includes(searchWord);
          });
          setFilteredData(newFilter);
     }    
     return (
         <div className='search'>
             <div className='searchInputs'>
-                <input type='text' placeholder={placeholder} onChange={handleFilter}/>
-                <div className='searchIcon'></div>
+                <input type='text' placeholder={placeholder} onChange={handleFilter} className='inputBtn'/>
+                <div className='searchIcon'>
+                    <SearchTwoToneIcon/>
+                </div>
             </div>
             {filteredData.length !== 0 && (
             <div className='dataResult'>
-                {filteredData.map((value, key) => {
+                {filteredData.slice(0, 15).map((value, key) => {
                     return ( 
-                        <a className='dataItem'> {/*value*/} </a>
+                        <a className='dataItem' href={value.url} target="_blank">
+                            <p>{value.name}</p>
+                        </a>
                     );
                 })}
             </div>

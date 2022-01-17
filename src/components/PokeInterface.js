@@ -19,6 +19,7 @@ export default function PokeInterface () {
         .then(data => {
             setPokeData(data.results)
         })
+        console.log("Nice it connected")
         return () => { mountedRef.current = false }
     }, [])
 
@@ -35,7 +36,6 @@ export default function PokeInterface () {
                 </main>
 
                 <Popup trigger={pokeClicked} setTrigger={setPokeClicked}>
-                    <h3>My popup</h3>
                     <SearchBar placeholder="Search for a pokemon" data={pokeData}/>
                 </Popup>
             </div>
