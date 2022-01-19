@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import Popup from './Popup'
 import SearchBar from './SearchBar'
 
@@ -7,23 +7,10 @@ import SearchBar from './SearchBar'
  * and the moveset chosen
  */
 
-export default function PokeInterface () {
+export default function PokeInterface ({database}) {
     const [pokeClicked, setPokeClicked] = useState(false)
     const [moveClicked, setMoveClicked] = useState(false)
-    const [pokeDatabase, setpokeDatabase] = useState(null) //This state refers to all the pokemon in a database
     const [pokeInfo, setpokeInfo] = useState(null) //This state refers to the single pokemon chosen through search bar
-    const mountedRef = useRef(true)
-
-    useEffect(() => {
-        fetch('https://pokeapi.co/api/v2/pokemon?limit=100000')
-        .then(response => response.json())
-        .then(data => {
-            setpokeDatabase(data.results)
-        })
-        console.log("Nice it connected")
-        return () => { mountedRef.current = false }
-    }, [])
-
     /**
      * This function returns the button to select a pokemon
      */
@@ -37,7 +24,7 @@ export default function PokeInterface () {
                 </main>
 
                 <Popup trigger={pokeClicked} setTrigger={setPokeClicked}>
-                    <SearchBar placeholder="Search for a pokemon" data={pokeDatabase} setReturnData={setpokeInfo}/>
+                    <SearchBar placeholder="Search for a pokemon" data={database} setReturnData={setpokeInfo}/>
                     {pokeInfo === null ? <div></div> : <div>{renderPokeInfo()}</div>}
                 </Popup>
             </div>
