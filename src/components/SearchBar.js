@@ -20,6 +20,14 @@ export default function SearchBar ({ placeholder, data}) {
          }
     }    
 
+    function determineCorrectImage(img) {
+        if(img.sprites.front_default === null) {
+            return img["sprites"]["other"]["official-artwork"]["front_default"]
+        }
+        else {
+            return img.sprites.front_default
+        }
+    }
     return (
         <div className='search'>
             <div className='searchInputs'>
@@ -41,7 +49,7 @@ export default function SearchBar ({ placeholder, data}) {
                             console.log(value.name);
                         }}>
                             <p>
-                                <img src={value.sprites.front_default} />
+                                <img src={determineCorrectImage(value)} height="100px" width="100px" />
                                 {value.name}
                             </p>
                         </a>
