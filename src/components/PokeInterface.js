@@ -10,14 +10,15 @@ import SearchBar from './SearchBar'
 export default function PokeInterface () {
     const [pokeClicked, setPokeClicked] = useState(false)
     const [moveClicked, setMoveClicked] = useState(false)
-    const [pokeData, setPokeData] = useState(null)
+    const [pokeDatabase, setpokeDatabase] = useState(null) //This state refers to all the pokemon in a database
+    const [pokeInfo, setpokeInfo] = useState(null) //This state refers to the single pokemon chosen through search bar
     const mountedRef = useRef(true)
 
     useEffect(() => {
         fetch('https://pokeapi.co/api/v2/pokemon?limit=100000')
         .then(response => response.json())
         .then(data => {
-            setPokeData(data.results)
+            setpokeDatabase(data.results)
         })
         console.log("Nice it connected")
         return () => { mountedRef.current = false }
@@ -36,9 +37,18 @@ export default function PokeInterface () {
                 </main>
 
                 <Popup trigger={pokeClicked} setTrigger={setPokeClicked}>
-                    <SearchBar placeholder="Search for a pokemon" data={pokeData}/>
+                    <SearchBar placeholder="Search for a pokemon" data={pokeDatabase} setReturnData={setpokeInfo}/>
+                    {pokeInfo === null ? <div></div> : <div>{renderPokeInfo()}</div>}
                 </Popup>
             </div>
+        )   
+    }
+
+    function renderPokeInfo() {
+        return (
+            <ul>
+                <li><img src={pokeInfo.sprites.front_default} /></li>
+            </ul>
         )
     }
 

@@ -3,7 +3,7 @@ import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 import './SearchBar.css'
 
-export default function SearchBar ({ placeholder, data }) {
+export default function SearchBar ({ placeholder, data, setReturnData}) {
     const [filteredData, setFilteredData] = useState([])
     const [wordEntered, setWordEntered] = useState("")
 
@@ -22,16 +22,22 @@ export default function SearchBar ({ placeholder, data }) {
          }
     }    
 
-    const onSuggestHandler = (text) => {
+    const onSuggestHandler = (text, url) => {
         setWordEntered(text)
         setFilteredData([])
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            setReturnData(data)
+        })
     }
 
     const clearInput = () => {
         setFilteredData([]);
         setWordEntered("")
-
     }
+
     return (
         <div className='search'>
             <div className='searchInputs'>
@@ -50,12 +56,11 @@ export default function SearchBar ({ placeholder, data }) {
             <div className='dataResult'>
                 {filteredData.map((value, key) => {
                     return ( 
-                        <a className='dataItem' target="_blank" key={key}>
-                            <p onClick={() =>  {
-                                onSuggestHandler(value.name);
-                                console.log(value.name);
-                            }}
-                            >{value.name}</p>
+                        <a className='dataItem' target="_blank" key={key}  onClick={() =>  {
+                            onSuggestHandler(value.name, value.url);
+                            console.log(value.name);
+                        }}>
+                            <p>{value.name}</p>
                         </a>
                     );
                 })}
