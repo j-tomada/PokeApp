@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import './SearchBar.css'
 
-export default function SearchBar ({ placeholder, data}) {
+export default function SearchBar ({ placeholder, data, setInfo, setImg, setClicked}) {
     const [filteredData, setFilteredData] = useState(data)
     const [wordEntered, setWordEntered] = useState("")
 
@@ -28,6 +28,7 @@ export default function SearchBar ({ placeholder, data}) {
             return img.sprites.front_default
         }
     }
+
     return (
         <div className='search'>
             <div className='searchInputs'>
@@ -46,7 +47,9 @@ export default function SearchBar ({ placeholder, data}) {
                 {filteredData.map((value, key) => {
                     return ( 
                         <a className='dataItem' target="_blank" key={key}  onClick={() =>  {
-                            console.log(value.name);
+                            setInfo(value)
+                            setImg(determineCorrectImage(value))
+                            setClicked(false)
                         }}>
                             <p>
                                 <img src={determineCorrectImage(value)} height="100px" width="100px" />

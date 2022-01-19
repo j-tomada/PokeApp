@@ -13,5 +13,5 @@ export default function Popup(props) {
                 { props.children }
             </div>
         </div>
-    ) : "";
+    ) : <div></div>;
 }

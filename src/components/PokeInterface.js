@@ -11,6 +11,7 @@ export default function PokeInterface ({database}) {
     const [pokeClicked, setPokeClicked] = useState(false)
     const [moveClicked, setMoveClicked] = useState(false)
     const [pokeInfo, setpokeInfo] = useState(null) //This state refers to the single pokemon chosen through search bar
+    const [pokeImg, setPokeImg] = useState(require('../images/add_button_poke.png'))
     /**
      * This function returns the button to select a pokemon
      */
@@ -19,24 +20,15 @@ export default function PokeInterface ({database}) {
             <div>
                 <main>
                     <button onClick={() => setPokeClicked(true)} className="poke-logo">
-                        <img src={require('../images/add_button_poke.png')} height='205px'/>
+                        <img src={pokeImg} height='205px'/>
                     </button>
                 </main>
 
                 <Popup trigger={pokeClicked} setTrigger={setPokeClicked}>
-                    <SearchBar placeholder="Search for a pokemon" data={database} setReturnData={setpokeInfo}/>
-                    {pokeInfo === null ? <div></div> : <div>{renderPokeInfo()}</div>}
+                    <SearchBar placeholder="Search for a pokemon" data={database} setInfo={setpokeInfo} setImg={setPokeImg} setClicked={setPokeClicked}/>
                 </Popup>
             </div>
         )   
-    }
-
-    function renderPokeInfo() {
-        return (
-            <ul>
-                <li><img src={pokeInfo.sprites.front_default} /></li>
-            </ul>
-        )
     }
 
     /**
