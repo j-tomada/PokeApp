@@ -62,3 +62,5 @@ export default function SearchBar ({ placeholder, data, setInfo, setImg, setClic
         </div>
     )
 }
+
+//Hello
