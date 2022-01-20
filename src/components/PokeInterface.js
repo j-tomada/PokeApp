@@ -37,7 +37,15 @@ export default function PokeInterface ({database}) {
     function moveButton () {
         return (
             <div>
-                <button onClick={() => setMoveClicked(true)} className="moves-button">
+                <button onClick={() => {
+                    if (pokeInfo === null) {
+                        console.log("A pokemon has not been selected")
+                    }
+                    else {
+                        setMoveClicked(true)
+                    }
+                }} 
+                className="moves-button">
                     <img src={require('../images/add_button_moves.png')} />
                 </button>
 
